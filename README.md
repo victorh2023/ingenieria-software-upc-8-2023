@@ -8,4 +8,4 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Ricardo Rivera Heredia - ricardo.rivera1299@gmail.com - 77634698
 
-##
+## Hermes Ernesto Cayalo Soria - hcayalo@gmail.com -78130097
