@@ -14,7 +14,7 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Michael Veliz Cadima - michaelVelizcadima@gmail.com - 75682018
 
-
+## Mychel Peña Breton - mayk.d7@gmail.com - 71752777
 
 
 
