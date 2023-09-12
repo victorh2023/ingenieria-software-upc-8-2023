@@ -13,17 +13,31 @@
     </ion-toolbar>
   </ion-header>
 
-
+  
   <ion-item>
     <ion-input id="nombreCategoria" type="text" placeholder="Ingrese el Nombre de la Categoria" [(ngModel)]="nombre"></ion-input>
-
     <ion-button id="addCategoria" (click)="addCategoria()">Agregar Categoria</ion-button>
   </ion-item>
+  <br>
+
+  <h2>Buscar CategoriaProducto por ID</h2>
+  <ion-item>
+    <ion-input id="id" type="number" placeholder="Ingrese Id CategoriaProducto" [(ngModel)]="id"></ion-input>
+    <ion-button id="getById" (click)="getById(id)">Obtener Categoria</ion-button>
+  </ion-item>
+  <div *ngIf="categoriaProducto">
+    <p><strong>ID:</strong> {{ categoriaProducto.id }}</p>
+    <p><strong>Nombre:</strong> {{ categoriaProducto.nombre }}</p>
+
+  </div>
+  
   <br>
   <ion-list>
     <ion-item *ngFor="let item of listaCategoria">
       <b>nombre</b>:{{item.nombre}}; 
     </ion-item>
   </ion-list>
+
+
   
 </ion-content>

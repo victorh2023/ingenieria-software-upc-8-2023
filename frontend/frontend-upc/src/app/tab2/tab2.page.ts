@@ -10,9 +10,11 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class Tab2Page {
 
+  public id = 1;
   public nombre = ""
 
   public listaCategoria: CategoriaProducto[] = []
+  public categoriaProducto: CategoriaProducto | null = null;
 
   constructor(private categoriaProductoService: CategoriaProductoService) {
 
@@ -31,6 +33,28 @@ export class Tab2Page {
         complete: () => {
             //console.log('complete - this.getCategoria()');
         },
+    });
+  }
+
+
+  public  getById(id: number){
+    this.getByIDFromBackend(id);
+  }
+
+  private getByIDFromBackend(id: number) {
+    this.categoriaProductoService.GetById(id).subscribe({
+      next: (response: HttpResponse<any>) => {
+        // Asignar el categoriaProducto obtenido a la propiedad categoriaProducto
+        this.categoriaProducto = response.body;
+        console.log(this.categoriaProducto)
+        // console.log(response.body);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => {
+        //console.log('complete - this.getByIDFromBackend()');
+      },
     });
   }
 
