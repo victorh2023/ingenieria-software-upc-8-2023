@@ -18,6 +18,8 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Carlos Edgar Coronado Luján - unmen00@gmail.com - 61531769
 
+## Gary Ronald Luna Humerez - gronaldlh@gmail.com - 70066576
+
 
 
 
