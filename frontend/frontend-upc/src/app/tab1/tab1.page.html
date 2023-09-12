@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Usuarios
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Usuarios</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-item>
+  <ion-input id="nombreCompleto" type="text" placeholder="Ingrese el Nombre Completo" [(ngModel)]="nombreCompleto"></ion-input>
+  <ion-input id="userName" type="text" placeholder="Ingrese su User Name" [(ngModel)]="userName"></ion-input>
+  <ion-input id="password" type="text" placeholder="Ingrese la Contraseña" [(ngModel)]="password"></ion-input>
+  <ion-button id="addUsuario" (click)="addUsuario()">Agregar Usuario</ion-button>
+</ion-item>
+<br>
+<ion-list>
+  <ion-item *ngFor="let item of listaUsuarios">
+    <b>nombre</b>:{{item.nombreCompleto}}; <b>userName</b>:{{item.userName}}; <b>pass</b>:{{item.password}}
+  </ion-item>
+</ion-list>
+
+
+</ion-content>
