@@ -6,6 +6,6 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Franco Tapia Miranda - francotapia1on1@gmail.com - 69130421
 
-##
+## christian roca justiniano - christian.crj.bb@gmail.com - 78539048
 
 ##
