@@ -11,7 +11,10 @@ export class DetalleCarritoService {
   PATH_BACKEND = "http://localhost:" + "5163"
 
   URL_GET = this.PATH_BACKEND + "/api/DetalleCarrito/GetAllDetalleCarrito";
-  URL_ADD_DETALLE= this.PATH_BACKEND + "/api/DetalleCarrito/AddDetalleCarrito";
+  URL_GETBYID = this.PATH_BACKEND + "/api/DetalleCarrito/GetDetalleCarritoById";
+  URL_ADD = this.PATH_BACKEND + "/api/DetalleCarrito/AddDetalleCarrito";
+  URL_UPDATE = this.PATH_BACKEND + "/api/DetalleCarrito/UpdateDetalleCarrito";
+  URL_DELETE = this.PATH_BACKEND + "/api/DetalleCarrito/DeleteDetalleCarrito";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -23,10 +26,35 @@ export class DetalleCarritoService {
       .pipe();
   }
 
-  public Add(entidad: DetalleCarrito): Observable<HttpResponse<any>> {
+  public  GetById(id: number): Observable<HttpResponse<any>> {
+    const url = `${this.URL_GETBYID}?id=${id}`;
     return this.httpClient
-      .post<any>(this.URL_ADD_DETALLE, entidad,
+      .get<any>(url,
         { observe: 'response' })
       .pipe();
   }
+
+  public Add(entidad: DetalleCarrito): Observable<HttpResponse<any>> {
+    return this.httpClient
+      .post<any>(this.URL_ADD, entidad,
+        { observe: 'response' })
+      .pipe();
+  }
+
+  public Update(entidad: DetalleCarrito): Observable<HttpResponse<any>> {
+    return this.httpClient
+      .put<any>(this.URL_UPDATE, entidad,
+        { observe: 'response' })
+      .pipe();
+  }
+
+  public Delete(id: number): Observable<HttpResponse<any>> {
+    const url = `${this.URL_DELETE}?id=${id}`;
+    return this.httpClient
+      .delete<any>(url,
+        { observe: 'response' })
+      .pipe();
+  }
+
+
 }

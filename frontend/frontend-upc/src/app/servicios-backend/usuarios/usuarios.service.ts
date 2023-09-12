@@ -11,7 +11,11 @@ export class UsuariosService {
   PATH_BACKEND = "http://localhost:" + "5163"
 
   URL_GET = this.PATH_BACKEND + "/api/Usuarios/GetAllUsuarios";
-  URL_ADD_USUARIO = this.PATH_BACKEND + "/api/Usuarios/AddUsuario";
+  URL_GETBYID = this.PATH_BACKEND + "/api/Usuarios/GetUsuariosById";
+  URL_ADD = this.PATH_BACKEND + "/api/Usuarios/AddUsuario";
+  URL_UPDATE = this.PATH_BACKEND + "/api/Usuarios/UpdateUsuario";
+  URL_DELETE = this.PATH_BACKEND + "/api/Usuarios/DeleteUsuario";
+  
 
   constructor(private httpClient: HttpClient) {
   }
@@ -23,11 +27,35 @@ export class UsuariosService {
       .pipe();
   }
 
-  public AddUsuario(entidad: Usuarios): Observable<HttpResponse<any>> {
+  public  GetById(id: number): Observable<HttpResponse<any>> {
+    const url = `${this.URL_GET}?id=${id}`;
     return this.httpClient
-      .post<any>(this.URL_ADD_USUARIO, entidad,
+      .get<any>(url,
         { observe: 'response' })
       .pipe();
   }
+
+  public AddUsuario(entidad: Usuarios): Observable<HttpResponse<any>> {
+    return this.httpClient
+      .post<any>(this.URL_ADD, entidad,
+        { observe: 'response' })
+      .pipe();
+  }
+
+  public Update(entidad: Usuarios): Observable<HttpResponse<any>> {
+    return this.httpClient
+      .put<any>(this.URL_UPDATE, entidad,
+        { observe: 'response' })
+      .pipe();
+  }
+
+  public Delete(id: number): Observable<HttpResponse<any>> {
+    const url = `${this.URL_DELETE}?id=${id}`;
+    return this.httpClient
+      .delete<any>(url,
+        { observe: 'response' })
+      .pipe();
+  }
+
 
 }

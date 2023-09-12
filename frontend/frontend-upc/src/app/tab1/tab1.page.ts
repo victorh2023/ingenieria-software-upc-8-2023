@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Usuarios } from '../entidades/usuarios';
 import { UsuariosService } from '../servicios-backend/usuarios/usuarios.service';
 import { HttpResponse } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
+
 })
 export class Tab1Page {
 
@@ -17,16 +19,8 @@ export class Tab1Page {
   public listaUsuarios: Usuarios[] = []
 
   constructor(private usuariosService: UsuariosService) {
-
-   /* let usuario: Usuarios = new Usuarios();
-    usuario.nombreCompleto = "Eddy Escalante"
-    usuario.userName = "eescalante"
-    usuario.password = "2023"
-
-    this.listaUsuarios.push(usuario)
-    this.listaUsuarios.push(usuario)*/
-
     this.getUsuariosFromBackend();
+ 
   }
 
   private getUsuariosFromBackend(){

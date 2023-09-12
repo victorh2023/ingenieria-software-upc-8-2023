@@ -41,6 +41,7 @@ export class DetallePedidoService {
         { observe: 'response' })
       .pipe();
   }
+  
   public Update(entidad: DetallePedido): Observable<HttpResponse<any>> {
     return this.httpClient
       .put<any>(this.URL_UPDATE, entidad,
