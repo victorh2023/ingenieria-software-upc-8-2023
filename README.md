@@ -16,7 +16,7 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Mychel Peña Breton - mayk.d7@gmail.com - 71752777
 
-
+## Carlos Edgar Coronado Luján - unmen00@gmail.com - 61531769
 
 
 
