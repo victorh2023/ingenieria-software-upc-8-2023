@@ -10,11 +10,11 @@ namespace backend.servicios
     public static class CategoriaProductoServicios
     {
         public static IEnumerable<T> ObtenerTodo<T>(){
-            // const string sql = "select * from categoria_producto";
-            // return BDManager.GetInstance.GetData<T>(sql);
-            const string storedProcedureName = "GetAllCategoriaProducto";
-            var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
-            return BDManager.GetInstance.SPGetData<T>(storedProcedureName, parameters);
+            const string sql = "select top 5 * from categoria_producto ORDER BY FECHA_REGISTRO DESC";
+            return BDManager.GetInstance.GetData<T>(sql);
+            // const string storedProcedureName = "GetAllCategoriaProducto";
+            // var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
+            // return BDManager.GetInstance.SPGetData<T>(storedProcedureName, parameters);
         }
 
         public static T ObtenerById<T>(int id){

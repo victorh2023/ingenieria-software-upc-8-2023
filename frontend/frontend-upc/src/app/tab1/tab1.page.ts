@@ -59,7 +59,7 @@ export class Tab1Page {
               this.userName = "";
               this.password = "";
           }else{
-              alert("Al agregar al USUARIO fallo exito :(");
+              alert("Al agregar al USUARIO fallo  :(");
           }
       },
       error: (error: any) => {

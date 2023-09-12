@@ -10,11 +10,11 @@ namespace backend.servicios
     public static class UsuariosServicios
     {
         public static IEnumerable<T> ObtenerTodo<T>(){
-            // const string sql = "select * from usuarios";
-            // return BDManager.GetInstance.GetData<T>(sql);
-            const string storedProcedure = "ObtenerTodosLosUsuarios";
-            var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
-            return BDManager.GetInstance.SPGetData<T>(storedProcedure, parameters);
+            const string sql = "select top 5 * from usuarios ORDER BY FECHA_REGISTRO DESC";
+            return BDManager.GetInstance.GetData<T>(sql);
+            // const string storedProcedure = "ObtenerTodosLosUsuarios";
+            // var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
+            // return BDManager.GetInstance.SPGetData<T>(storedProcedure, parameters);
         }
 
         public static T ObtenerById<T>(int id){
@@ -55,7 +55,7 @@ namespace backend.servicios
 
         public static int DeleteUsuarios(int id)
         {
-            // const string sql = "DELETE FROM [dbo].[USUARIOS] WHERE [ID] = @id";
+            //const string sql = "DELETE FROM [dbo].[USUARIOS] WHERE [ID] = @id";
             const string storedProcedure = "DeleteUsuario";
             var parameter = new DynamicParameters();
             parameter.Add("id", id, DbType.Int32);

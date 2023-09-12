@@ -10,20 +10,20 @@ namespace backend.servicios
     public static class ProductoServicios
     {
         public static IEnumerable<T> ObtenerTodo<T>(){
-            // const string sql = "select * from producto";
-            const string storedProcedureName = "GetAllProducts";
-            // return BDManager.GetInstance.GetData<T>(sql);
-            var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
-            return BDManager.GetInstance.SPGetData<T>(storedProcedureName, parameters);
+            const string sql = "select TOP 5 * from producto ORDER BY FECHA_REGISTRO DESC";
+            return BDManager.GetInstance.GetData<T>(sql);
+            //const string storedProcedureName = "GetAllProducts";
+            //var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
+            //return BDManager.GetInstance.SPGetData<T>(storedProcedureName, parameters);
 
         }
 
         public static T ObtenerById<T>(int id){
-            // const string sql = "select * from producto where ID = @Id and estado_registro = 1";
+            //const string sql = "select * from producto where ID = @Id and estado_registro = 1";
             const string storedProcedureName = "GetProductoById";
             var parameter = new DynamicParameters();
             parameter.Add("id", id, DbType.Int64);
-            // var result = BDManager.GetInstance.GetDataWithParameters<T>(sql, parameter);
+            //var result = BDManager.GetInstance.GetDataWithParameters<T>(sql, parameter);
             var result =  BDManager.GetInstance.SPGetDataWithParameters<T>(storedProcedureName, parameter);
             return result.FirstOrDefault();                      
         }

@@ -19,12 +19,12 @@ namespace backend.servicios
         }
 
         public static T ObtenerById<T>(int id){
-             const string sql = "select * from proveedor where ID = @Id and estado_registro = 1 ";
-            // const string storedProcedureName = "GetProveedorById";
+            //const string sql = "select * from proveedor where ID = @Id and estado_registro = 1 ";
+            const string storedProcedureName = "GetProveedorById";
             var parameter = new DynamicParameters();
             parameter.Add("id", id, DbType.Int64);
-             var result = BDManager.GetInstance.GetDataWithParameters<T>(sql, parameter);
-            // var result =  BDManager.GetInstance.SPGetDataWithParameters<T>(storedProcedureName, parameter);
+            //var result = BDManager.GetInstance.GetDataWithParameters<T>(sql, parameter);
+            var result =  BDManager.GetInstance.SPGetDataWithParameters<T>(storedProcedureName, parameter);
             return result.FirstOrDefault();                      
         }
 
