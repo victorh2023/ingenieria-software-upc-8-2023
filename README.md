@@ -6,6 +6,36 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## christian roca justiniano - christian.crj.bb@gmail.com - 78539048
 
-##
 
-##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Maicol Arteaga Guzman - maicolarteaga0711@gmail.com  - 63568888
