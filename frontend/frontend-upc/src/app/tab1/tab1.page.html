@@ -1,13 +1,12 @@
-
+<ion-content [fullscreen]="true">
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Usuarios
+      <h2 style="color: rgb(5, 5, 5); font-family: 'Times New Roman', Times, serif; text-align: center; margin-top: auto;"> Lista de Usuarios</h2>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Usuarios</ion-title>
@@ -15,21 +14,23 @@
   </ion-header>
 
  
-    <ion-item>
-      <ion-input id="nombreCompleto" type="text" placeholder="Ingrese el Nombre Completo" [(ngModel)]="nombreCompleto"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input id="userName" type="text" placeholder="Ingrese su User Name" [(ngModel)]="userName"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input id="password" type="text" placeholder="Ingrese la Contraseña" [(ngModel)]="password"></ion-input>
-    </ion-item>
-    <ion-button id="addUsuario" (click)="addUsuario()">Agregar Usuario</ion-button>
+  <ion-item color="success">
+    <ion-label position="float">Nombre y Apellido;</ion-label> 
+    <ion-input id="nombreCompleto" type="text" placeholder="__________" [(ngModel)]="nombreCompleto"></ion-input>
+    <ion-label position="float">User Name;</ion-label>   
+    <ion-input id="userName" type="text" placeholder="__________" [(ngModel)]="userName"></ion-input>
+    <ion-label position="float">Password;</ion-label> 
+    <ion-input id="password" type="text" placeholder="__________" [(ngModel)]="password"></ion-input>
+    
+    <ion-button expand="block" fill="outline" id="addUsuario" (click)="addUsuario()">Agregar Usuario</ion-button>
+    <br>
+</ion-item>
 
-<br>
 <ion-list>
   <ion-item *ngFor="let item of listaUsuarios">
-    <b>nombre</b>:{{item.nombreCompleto}}; <b>userName</b>:{{item.userName}}; <b>pass</b>:{{item.password}}
+    <ion-label position="float">{{item.nombreCompleto}}</ion-label>  
+    <ion-label position="float">{{item.userName}}</ion-label>  
+    <ion-label position="float">{{item.password}}</ion-label>  
   </ion-item>
 </ion-list>
 
