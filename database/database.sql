@@ -133,9 +133,52 @@ ALTER TABLE DETALLE_CARRITO
   FOREIGN KEY("ID_CARRITO_COMPRA")
   REFERENCES CARRITO_COMPRA("ID");
 
+-- // TRIGGER
+CREATE TABLE BITACORA (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    FECHA_HORA DATETIME,
+    EVENTO VARCHAR(100),
+    VALOR_ANTIGUO NVARCHAR(100),
+    VALOR_NUEVO NVARCHAR(100)
+);
 
-  
+CREATE TRIGGER TRIGGER_BITACORA
+ON USUARIOS
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+  DECLARE @Evento VARCHAR(100);
+    SET @Evento = '';
 
+  IF EXISTS (SELECT * FROM INSERTED)
+    BEGIN
+        SET @Evento = @Evento + 'Se insertaron registros en la tabla USUARIOS. ';
+    END
+
+  IF EXISTS (SELECT * FROM DELETED)
+  BEGIN
+      SET @Evento = @Evento + 'Se eliminaron registros de la tabla USUARIOS. ';
+  END
+
+  IF UPDATE(USER_NAME)
+  BEGIN
+      SET @Evento = @Evento + 'Se actualizó el campo USER_NAME en la tabla USUARIOS. ';
+      INSERT INTO BITACORA (FECHA_HORA, EVENTO, VALOR_ANTIGUO, VALOR_NUEVO)
+      SELECT
+          GETDATE(),
+          @Evento,
+          d.USER_NAME,
+          i.USER_NAME
+      FROM INSERTED i
+      FULL OUTER JOIN DELETED d ON i.ID = d.ID;
+  END
+
+    IF @Evento != ''
+    BEGIN
+        INSERT INTO BitacoraUsuarios (FECHA_HORA, EVENTO)
+        VALUES (GETDATE(), @Evento);
+    END
+END;
 /*
 
 
