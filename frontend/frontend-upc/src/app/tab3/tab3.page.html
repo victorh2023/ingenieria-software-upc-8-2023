@@ -19,11 +19,27 @@
     <ion-input id="idCategoria" type="number" placeholder="Ingrese el ID de la Categoria" [(ngModel)]="idCategoria"></ion-input>
 
     <ion-button id="addProducto" (click)="addProducto()">Agregar Producto</ion-button>
+    <ion-button id="updateProducto" (click)="updateProducto(nombre,idCategoria)">Actualizar Producto</ion-button>    
   </ion-item>
   <br>
+
+  <h2>Buscar - Eliminar Producto por ID</h2>
+  <ion-item>
+    <ion-input id="id" type="number" placeholder="Ingrese Id del Producto" [(ngModel)]="id"></ion-input>
+    
+    <ion-button id="getById" (click)="getById()">Obtener Producto</ion-button>
+    <ion-button id="deleteProducto" (click)="deleteProducto(id)">Eliminar Producto</ion-button>
+  </ion-item>
+  <div *ngIf="producto">
+    <p><strong>ID:</strong> {{ producto.id }}</p>
+    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+    <p><strong>Nombre:</strong> {{ producto.idCategoria }}</p>
+  </div>
+
+
   <ion-list>
     <ion-item *ngFor="let item of listaProducto">
-      <b>nombre</b>:{{item.nombre}}; <b>idCategoria</b>:{{item.idCategoria}};
+      <b>id</b>:{{item.id}};<b>nombre</b>:{{item.nombre}}; <b>idCategoria</b>:{{item.idCategoria}};
     </ion-item>
   </ion-list>
 </ion-content>
