@@ -284,3 +284,19 @@ CREATE TABLE DETALLE_PEDIDO
 
 
 */
+
+--  /*************************PROCEDIMEINTO ALMACENADOS******************************\
+-- /                                                                                  \
+--/  
+--****** Buscar segun nombre y contrasenia y devuelve todos los sus datos ************
+CREATE PROCEDURE SearchUserByUserAndPass
+    @UserName VARCHAR(40),
+    @Password VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT *
+    FROM USUARIOS
+    WHERE USER_NAME = @UserName AND PASSWORD = @Password AND ESTADO_REGISTRO = 1;
+END
