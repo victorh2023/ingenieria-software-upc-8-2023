@@ -285,7 +285,7 @@ CREATE TABLE DETALLE_PEDIDO
 
 */
 
---  /*************************PROCEDIMEINTO ALMACENADOS******************************\
+--  /*************************PROCEDIMIENTOS ALMACENADOS******************************\
 -- /                                                                                  \
 --/  
 --****** Buscar segun nombre y contrasenia y devuelve todos los sus datos ************
@@ -299,4 +299,18 @@ BEGIN
     SELECT *
     FROM USUARIOS
     WHERE USER_NAME = @UserName AND PASSWORD = @Password AND ESTADO_REGISTRO = 1;
+END
+
+
+--****** modificar la contrasenia segun le mandemos el ID y el password ************
+CREATE PROCEDURE changeUserPasswordDB
+    @UserID INT,
+    @NewPassword VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE USUARIOS
+    SET PASSWORD = @NewPassword
+    WHERE ID = @UserID;
 END

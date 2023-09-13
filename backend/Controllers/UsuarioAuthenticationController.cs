@@ -24,8 +24,8 @@ public class UsuarioAuthenticationController : ControllerBase
 
 
     [HttpGet]
-    [Route("userLogin")]
-    public IActionResult userLogin([FromQuery]string user, [FromQuery]string pass)
+    [Route("UserLogin")]
+    public IActionResult userLogin([FromQuery] string user, [FromQuery] string pass)
     {
         try
         {
@@ -36,5 +36,27 @@ public class UsuarioAuthenticationController : ControllerBase
         {
             return StatusCode(500, ex.Message);
         }
+    }
+
+    [HttpPost]
+    [Route("CambiarContrasenia")]
+    public IActionResult cambiarContrasenia(Usuarios usuarios, [FromQuery] string oldPass, [FromQuery] string newPass)
+    {
+        if (usuarios.Password == oldPass.ToString())
+        {
+            try
+            {
+                var result = UsuarioLoginServicios.changeUserPassword(usuarios, newPass);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        else {
+            return StatusCode(500, "Pass incorrecto: "+newPass.ToString());;
+        };
+
     }
 }
