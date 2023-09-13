@@ -10,7 +10,7 @@ namespace backend.servicios
     public static class CarritoCompraServicios
     {
         public static IEnumerable<T> ObtenerTodo<T>(){
-             const string sql = "select top 5 * from carrito_compra BY FECHA_REGISTRO DESC";
+             const string sql = "select top 5 * from carrito_compra ORDER BY FECHA_REGISTRO DESC";
              return BDManager.GetInstance.GetData<T>(sql);
             // const string storedProcedureName = "GetCarritoCompra";
             // var parameters = new DynamicParameters(); // Agrega parámetros si es necesario
