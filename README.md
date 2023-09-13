@@ -20,6 +20,8 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Gary Ronald Luna Humerez - gronaldlh@gmail.com - 70066576
 
+## Victor Hugo Condori Bejarano - victorhugocondoribejarano@gmail.com - 60961276
+
 
 
 
