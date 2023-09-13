@@ -13,7 +13,6 @@
     </ion-toolbar>
   </ion-header>
 
-  
   <ion-item>
     <ion-input id="id" type="number" placeholder="Ingrese Id CategoriaProducto" [(ngModel)]="id"></ion-input>
     <ion-input id="nombreCategoria" type="text" placeholder="Ingrese el Nombre de la Categoria" [(ngModel)]="nombre"></ion-input>
@@ -30,7 +29,6 @@
   <div *ngIf="categoriaProducto">
     <p><strong>ID:</strong> {{ categoriaProducto.id }}</p>
     <p><strong>Nombre:</strong> {{ categoriaProducto.nombre }}</p>
-
   </div>
   
   <br>

@@ -97,7 +97,6 @@ export class Tab2Page {
     categoriaProductoEntidad.id = id;
     categoriaProductoEntidad.nombre = nombre;
 
-
     this.categoriaProductoService.Update(categoriaProductoEntidad).subscribe({
       next: (response: HttpResponse<any>) => {
           console.log(response.body)//1
