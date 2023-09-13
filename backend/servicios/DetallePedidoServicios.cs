@@ -53,6 +53,7 @@ namespace backend.servicios
             parameter.Add("id_proveedor", detallePedido.IdProveedor, DbType.Int32);
             parameter.Add("cantidad", detallePedido.Cantidad, DbType.Int32);
             var result = BDManager.GetInstance.SetData(sql, parameter);
+            
             // const string storedProcedureName = "UpdateDetallePedido";
             // var result = BDManager.GetInstance.SPSetData(storedProcedureName, parameter);
             return result;

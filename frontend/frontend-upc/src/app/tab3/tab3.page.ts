@@ -10,60 +10,141 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
 })
 export class Tab3Page {
 
-public nombre = ""
-public idCategoria = 1;
+    public id = 0;
+    public nombre = ""
+    public idCategoria = 0;
 
-public listaProducto: Producto[] = []
+    public listaProducto: Producto[] = []
+    public producto: Producto | null = null;
 
-constructor(private productoService: ProductoService) {
+    constructor(private productoService: ProductoService) {
 
-  this.getProductoFromBackend();
-}
+    this.getProductoFromBackend();
+    }
 
-private getProductoFromBackend(){
-  this.productoService.GetAll().subscribe({
+    private getProductoFromBackend(){
+    this.productoService.GetAll().subscribe({
+        next: (response: HttpResponse<any>) => {
+            this.listaProducto = response.body;
+            console.log(this.listaProducto)
+        },
+        error: (error: any) => {
+            console.log(error);
+        },
+        complete: () => {
+            //console.log('complete - this.getProducto()');
+        },
+    });
+    }
+/*
+    public  getById(id: number){
+        this.getByIDFromBackend(id);
+    }
+*/
+    public  getById(){
+        this.getByIDFromBackend(this.id);
+    }
+
+    private getByIDFromBackend(id: number) {
+        this.productoService.GetById(id).subscribe({
+        next: (response: HttpResponse<any>) => {
+            // Asignar el Producto obtenido a la propiedadProducto
+            this.producto = response.body;
+            console.log(this.producto)
+            // console.log(response.body);
+        },
+        error: (error: any) => {
+            console.log(error);
+        },
+        complete: () => {
+            //console.log('complete - this.getByIDFromBackend()');
+        },
+        });
+    }
+
+
+    public addProducto(){
+    this.AddProductoFromBackend(this.nombre, this.idCategoria)
+    }
+
+    private AddProductoFromBackend(nombre: string, idCategoria:number){
+
+    var productoEntidad = new Producto();
+    productoEntidad.nombre = nombre;
+    productoEntidad.idCategoria = idCategoria;
+    this.productoService.Add(productoEntidad).subscribe({
+        next: (response: HttpResponse<any>) => {
+            console.log(response.body)//1
+            if(response.body == 1){
+                alert("Se agrego el PRODUCTO con exito :)");
+                this.getProductoFromBackend();//Se actualize el listado
+                this.nombre = "";
+                this.idCategoria=0;
+            }else{
+                alert("Al agregar al PRODUCTO fallo :(");
+            }
+        },
+        error: (error: any) => {
+            console.log(error);
+        },
+        complete: () => {
+            //console.log('complete - this.PRODUCTO()');
+        },
+    });
+    }
+
+    public updateProducto(nombre: string, idCategoria: number){
+        this.updateProductoFromBackend(nombre, idCategoria)
+    }
+    
+    private updateProductoFromBackend(nombre: string, idCategoria: number){
+        var productoEntidad = new Producto();
+        productoEntidad.nombre = nombre;
+        productoEntidad.idCategoria = idCategoria;
+
+        this.productoService.Update(productoEntidad).subscribe({
+        next: (response: HttpResponse<any>) => {
+            console.log(response.body)//1
+            if(response.body == 1){
+                alert("Se Actualizó el Producto con exito :)");
+                this.getProductoFromBackend();//Se actualize el listado
+                this.nombre = "";
+                this.idCategoria = 0;
+            }else{
+                alert("Al agregar al USUARIO fallo :(");
+            }
+        },
+        error: (error: any) => {
+            console.log(error);
+        },
+        complete: () => {
+            //console.log('complete - this.AddUsuario()');
+        },
+    });
+    }
+
+// Metodo public Eliminar Producto por ID
+  public deleteProducto(id: number) {
+    this.deleteProductoFromBackend(id);
+  }
+
+  // Eliminar Producto por ID
+  private deleteProductoFromBackend(id: number) {
+    this.productoService.Delete(id).subscribe({
       next: (response: HttpResponse<any>) => {
-          this.listaProducto = response.body;
-          console.log(this.listaProducto)
+        if (response.body == 1) {
+          alert("Se eliminó el producto con éxito :)");
+          this.getProductoFromBackend(); // Se actualiza el listado
+        } else {
+          alert("Al eliminar el Producto falló :(");
+        }
       },
       error: (error: any) => {
-          console.log(error);
+        console.log(error);
       },
       complete: () => {
-          //console.log('complete - this.getProducto()');
+        //console.log('complete - this.deleteProducto()');
       },
-  });
-}
-
-public addProducto(){
-  this.AddProductoFromBackend(this.nombre, this.idCategoria)
- }
-
- private AddProductoFromBackend(nombre: string, idCategoria:number){
-
-  var productoEntidad = new Producto();
-  productoEntidad.nombre = nombre;
-  productoEntidad.idCategoria = idCategoria;
-
-  this.productoService.Add(productoEntidad).subscribe({
-    next: (response: HttpResponse<any>) => {
-        console.log(response.body)//1
-        if(response.body == 1){
-            alert("Se agrego el PRODUCTO con exito :)");
-            this.getProductoFromBackend();//Se actualize el listado
-            this.nombre = "";
-            this.idCategoria=1;
-        }else{
-            alert("Al agregar al PRODUCTO fallo :(");
-        }
-    },
-    error: (error: any) => {
-        console.log(error);
-    },
-    complete: () => {
-        //console.log('complete - this.PRODUCTO()');
-    },
-});
-}
-
+    });
+    }
 }
