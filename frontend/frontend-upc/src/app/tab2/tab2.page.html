@@ -15,8 +15,10 @@
 
   
   <ion-item>
+    <ion-input id="id" type="number" placeholder="Ingrese Id CategoriaProducto" [(ngModel)]="id"></ion-input>
     <ion-input id="nombreCategoria" type="text" placeholder="Ingrese el Nombre de la Categoria" [(ngModel)]="nombre"></ion-input>
     <ion-button id="addCategoria" (click)="addCategoria()">Agregar Categoria</ion-button>
+    <ion-button id="updateCategoriaProducto" (click)="updateCategoriaProducto(id,nombre)">Actualizr Categoria</ion-button>
   </ion-item>
   <br>
 

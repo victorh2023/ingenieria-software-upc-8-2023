@@ -86,4 +86,36 @@ export class Tab2Page {
       },
   });
   }
+
+  // Metodo para actualizar una categoria
+  public updateCategoriaProducto(id: number,nombre :string){
+    this.updateCategoriaProductoFromBackend(id, nombre)
+   }
+  
+   private updateCategoriaProductoFromBackend(id: number, nombre: string){
+    var categoriaProductoEntidad = new CategoriaProducto();
+    categoriaProductoEntidad.id = id;
+    categoriaProductoEntidad.nombre = nombre;
+
+
+    this.categoriaProductoService.Update(categoriaProductoEntidad).subscribe({
+      next: (response: HttpResponse<any>) => {
+          console.log(response.body)//1
+          if(response.body == 1){
+              alert("Se Actualizó el Categoria Producto con exito :)");
+              this.getCategoriaFromBackend();//Se actualize el listado
+              this.nombre = "";
+
+          }else{
+              alert("Al agregar al USUARIO fallo exito :(");
+          }
+      },
+      error: (error: any) => {
+          console.log(error);
+      },
+      complete: () => {
+          //console.log('complete - this.AddUsuario()');
+      },
+  });
+  }
 }
