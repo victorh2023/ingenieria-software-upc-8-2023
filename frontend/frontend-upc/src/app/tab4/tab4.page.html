@@ -1,49 +1,50 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Carrito Compra
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Carrito Compra</ion-title>
+  <ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+      <ion-title>
+      <h2 style="color: rgb(5, 5, 5); font-family: 'Times New Roman', Times, serif; text-align: center; margin-top: auto;"> Lista de Carrito de Compras</h2>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
-<h2>Agregar Nuevo Carrito de Compras</h2>
-  <ion-item>
-    <ion-input id="fecha" type="date" placeholder="Ingrese la Fecha" [(ngModel)]="fecha"></ion-input>
-    <ion-input id="idUsuario" type="text" placeholder="Ingrese el ID de Usuario" [(ngModel)]="idUsuario"></ion-input>
-  
-    <ion-button id="addCarrito" (click)="addCarrito()">Agregar Carrito</ion-button>
-  </ion-item>
-  <br>
 
-<h2>Agregar Detalle Carrito</h2>
-<ion-item>
-  <ion-input id="cantidad" type="number" placeholder="Ingrese la cantidad" [(ngModel)]="cantidad"></ion-input>
-  <ion-input id="idProducto" type="number" placeholder="Ingrese el idProducto" [(ngModel)]="idProducto"></ion-input>
-  <ion-input id="idCarritoCompra" type="number" placeholder="Ingrese el idCarritoCompra" [(ngModel)]="idCarritoCompra"></ion-input>
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Carrito Compra</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-  <ion-button id="addDetalleCarrito" (click)="addDetalleCarrito()">Agregar Detalle Carrito</ion-button>
-</ion-item>
-<br>
+    <h2>Agregar Nuevo Carrito de Compras</h2>
+      <ion-item>
+        <ion-input id="fecha" type="date" placeholder="Ingrese la Fecha" [(ngModel)]="fecha"></ion-input>
+        <ion-input id="idUsuario" type="text" placeholder="Ingrese el ID de Usuario" [(ngModel)]="idUsuario"></ion-input>
+      
+        <ion-button id="addCarrito" (click)="addCarrito()">Agregar Carrito</ion-button>
+      </ion-item>
+      <br>
 
-<h2>Ultimos 5 Carritos</h2>
-<ion-list>
-  <ion-item *ngFor="let item of listaCarrito">
-    <b>fecha</b>:{{item.fecha}}; <b>idUsuario</b>:{{item.idUsuario}}; 
-  </ion-item>
-</ion-list>
+    <h2>Agregar Detalle Carrito</h2>
+    <ion-item>
+      <ion-input id="cantidad" type="number" placeholder="Ingrese la cantidad" [(ngModel)]="cantidad"></ion-input>
+      <ion-input id="idProducto" type="number" placeholder="Ingrese el idProducto" [(ngModel)]="idProducto"></ion-input>
+      <ion-input id="idCarritoCompra" type="number" placeholder="Ingrese el idCarritoCompra" [(ngModel)]="idCarritoCompra"></ion-input>
 
-<h2>Utilimos 5 Detalles de  Carrito</h2>
-<ion-list>
-  <ion-item *ngFor="let item of listaDetalle">
-    <b>cantidad</b>:{{item.idProducto}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}
-  </ion-item>
-</ion-list>
+      <ion-button id="addDetalleCarrito" (click)="addDetalleCarrito()">Agregar Detalle Carrito</ion-button>
+    </ion-item>
+    <br>
+
+    <h2>Ultimos 5 Carritos</h2>
+    <ion-list>
+      <ion-item *ngFor="let item of listaCarrito">
+        <b>fecha</b>:{{item.fecha}}; <b>idUsuario</b>:{{item.idUsuario}}; 
+      </ion-item>
+    </ion-list>
+
+    <h2>Utilimos 5 Detalles de  Carrito</h2>
+    <ion-list>
+      <ion-item *ngFor="let item of listaDetalle">
+        <b>cantidad</b>:{{item.idProducto}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}
+      </ion-item>
+    </ion-list>
 
 </ion-content>
