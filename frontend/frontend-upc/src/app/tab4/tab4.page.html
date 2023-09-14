@@ -24,18 +24,6 @@
   </ion-item>
   <br>
 
-<h2>Agregar - Actualizar Detalle Carrito</h2>
-<ion-item>
-  <ion-input id="idDetalle" type="number" placeholder="Ingrese Id Proveedor" [(ngModel)]="idDetalle"></ion-input>
-  <ion-input id="cantidad" type="number" placeholder="Ingrese la cantidad" [(ngModel)]="cantidad"></ion-input>
-  <ion-input id="idProducto" type="number" placeholder="Ingrese el idProducto" [(ngModel)]="idProducto"></ion-input>
-  <ion-input id="idCarritoCompra" type="number" placeholder="Ingrese el idCarritoCompra" [(ngModel)]="idCarritoCompra"></ion-input>
-
-  <ion-button id="addDetalleCarrito" (click)="addDetalleCarrito()">Agregar Detalle</ion-button>
-  <ion-button id="addDetalleCarrito" (click)="addDetalleCarrito()">Actualizar Detalle</ion-button>
-</ion-item>
-<br>
-
 <h2>Obtener - Eliminar Carrito por ID</h2>
 <ion-item>
   <ion-input id="id" type="number" placeholder="Ingrese Id del Carrito" [(ngModel)]="id"></ion-input>    
@@ -48,6 +36,18 @@
     <p><strong>ID Usuario:</strong> {{ carritoCompra.idUsuario }}</p>
   </div>
 </ion-item>
+
+<h2>Agregar - Actualizar Detalle Carrito</h2>
+<ion-item>
+  <ion-input id="idDetalle" type="number" placeholder="Ingrese Id Proveedor" [(ngModel)]="idDetalle"></ion-input>
+  <ion-input id="cantidad" type="number" placeholder="Ingrese la cantidad" [(ngModel)]="cantidad"></ion-input>
+  <ion-input id="idProducto" type="number" placeholder="Ingrese el idProducto" [(ngModel)]="idProducto"></ion-input>
+  <ion-input id="idCarritoCompra" type="number" placeholder="Ingrese el idCarritoCompra" [(ngModel)]="idCarritoCompra"></ion-input>
+
+  <ion-button id="addDetalleCarrito" (click)="addDetalleCarrito()">Agregar Detalle</ion-button>
+  <ion-button id="updateDetalle" (click)="updateDetalle()">Actualizar Detalle</ion-button>
+</ion-item>
+<br>
 
 <h2>Obtener - Eliminar  Detalle Carrito por ID</h2>
 <ion-item>
@@ -66,14 +66,14 @@
 <h2>Ultimos 5 Carritos</h2>
 <ion-list>
   <ion-item *ngFor="let item of listaCarrito">
-    <b>fecha</b>:{{item.fecha}}; <b>idUsuario</b>:{{item.idUsuario}}; 
+    <b>id</b>:{{item.id}};<b>fecha</b>:{{item.fecha}}; <b>idUsuario</b>:{{item.idUsuario}}; 
   </ion-item>
 </ion-list>
 
 <h2>Utilimos 5 Detalles de  Carrito</h2>
 <ion-list>
   <ion-item *ngFor="let item of listaDetalle">
-    <b>cantidad</b>:{{item.idProducto}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}
+    <b>id</b>:{{item.id}};<b>cantidad</b>:{{item.idProducto}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}
   </ion-item>
 </ion-list>
 

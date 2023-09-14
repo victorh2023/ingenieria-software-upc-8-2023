@@ -209,11 +209,12 @@ private getCarritoByIDFromBackend(id: number) {
   }
 
   // Actualizar Carrito de Compra
-  public updateDetalle(cantidad: number, idProducto: number , idCarritoCompra: number){
-    this.updateDetalleFromBackend(cantidad, idProducto , idCarritoCompra)
+  public updateDetalle(){
+    this.updateDetalleFromBackend(this.idDetalle, this.cantidad, this.idProducto , this.idCarritoCompra)
   }    
-  private updateDetalleFromBackend(cantidad: number, idProducto: number , idCarritoCompra: number){
+  private updateDetalleFromBackend(idDetalle:number, cantidad: number, idProducto: number , idCarritoCompra: number){
     var detalleEntidad = new DetalleCarrito();
+    detalleEntidad.id = idDetalle;
     detalleEntidad.cantidad = cantidad;
     detalleEntidad.idProducto = idProducto;
     detalleEntidad.idCarritoCompra = idCarritoCompra;
