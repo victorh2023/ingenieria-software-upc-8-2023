@@ -1,7 +1,7 @@
 
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
+    <ion-title [style.fontSize.px]="fontSize">
       Configuración
     </ion-title>
   </ion-toolbar>
@@ -15,10 +15,25 @@
   </ion-header>
   <ion-item>
     <ion-label>Tamaño de Fuente</ion-label>
-    <ion-range  min="12" max="24" step="2">
+    <ion-range  min="12" max="24" step="2" >
       <ion-icon size="small" slot="start">small</ion-icon>
       <ion-icon size="large" slot="end">large</ion-icon>
     </ion-range>
+    <ion-button expand="full" >Guardar</ion-button>
+
   </ion-item>
 
+</ion-content>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Tamaño de Letra</ion-label>
+      <ion-range min="10" max="32" step="2" [(ngModel)]="fontSize">
+        <ion-icon slot="start" size="small" name="text"></ion-icon>
+        <ion-icon slot="end" name="text"></ion-icon>
+      </ion-range>
+      <ion-button expand="full" (click)="saveSettings()">Guardar</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

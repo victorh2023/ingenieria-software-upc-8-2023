@@ -47,7 +47,7 @@ export class Tab2Page {
   private getByIDFromBackend(id: number) {
     this.categoriaProductoService.GetById(id).subscribe({
       next: (response: HttpResponse<any>) => {
-        // Asignar el categoriaProducto obtenido a la propiedad categoriaProducto
+        // Asignar la categoriaProducto obtenido a la propiedad categoriaProducto
         this.categoriaProducto = response.body;
         console.log(this.categoriaProducto)
         // console.log(response.body);
@@ -60,8 +60,6 @@ export class Tab2Page {
       },
     });
   }
-
-
 
 
   public addCategoria(){
