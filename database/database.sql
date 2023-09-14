@@ -133,6 +133,18 @@ ALTER TABLE DETALLE_CARRITO
   FOREIGN KEY("ID_CARRITO_COMPRA")
   REFERENCES CARRITO_COMPRA("ID");
 
+--/////////////////////////Tabla para gestionar las funcionalidades del sistema///////////////////////////////////////////
+
+CREATE TABLE GESTION_FUNCIONALIDADES
+(
+  "ID" INT IDENTITY(1, 1) PRIMARY KEY,
+  "NOMBRE" VARCHAR(100) NOT NULL,
+  "DESCRIPCION" VARCHAR(255),
+  "USUARIO_REGISTRO" VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
+  "FECHA_REGISTRO" DATETIME DEFAULT GETDATE() NOT NULL,
+  "ESTADO_REGISTRO" INT DEFAULT 1 NOT NULL
+);
+
 -- // TRIGGER
 CREATE TABLE BITACORA (
     ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -187,7 +199,23 @@ select * from CATEGORIA_PRODUCTO //Backend
 select * from PRODUCTO //Backend
 select * from CARRITO_COMPRA //Backend
 select * from DETALLE_CARRITO
+select * from GESTION_FUNCIONALIDADES
 
+/FUNCIONALIDADES/
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Iniciar sesión en el sistema', 'Permite a los usuarios iniciar sesión en el sistema', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Visualizar información del perfil', 'Permite a los usuarios ver su información de perfil', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Administración de Productos', 'Permite a los usuarios administrar productos en el sistema', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Administración de Carrito de Compra', 'Permite a los usuarios administrar su carrito de compra', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Registro de actividades', 'Permite el registro de actividades de usuarios en el sistema', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Visualizar información de proveedor', 'Permite a los usuarios ver la información de los proveedores', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Administración de Categorías de Productos', 'Permite a los usuarios administrar las categorías de productos en el sistema', 'Admin', GETDATE(), 1);
 
 
 
