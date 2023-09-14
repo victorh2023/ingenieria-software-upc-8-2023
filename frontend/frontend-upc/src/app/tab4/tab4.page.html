@@ -15,7 +15,7 @@
 
 <h2>Agregar - Actualizar Carrito de Compras</h2>
   <ion-item>
-    <ion-input id="id" type="number" placeholder="Ingrese Id Proveedor" [(ngModel)]="id"></ion-input>
+    <ion-input id="id" type="number" placeholder="Ingrese Id Carrito" [(ngModel)]="id"></ion-input>
     <ion-input id="fecha" type="date" placeholder="Ingrese la Fecha" [(ngModel)]="fecha"></ion-input>
     <ion-input id="idUsuario" type="text" placeholder="Ingrese el ID de Usuario" [(ngModel)]="idUsuario"></ion-input>
   
@@ -28,6 +28,7 @@
 <ion-item>
   <ion-input id="id" type="number" placeholder="Ingrese Id del Carrito" [(ngModel)]="id"></ion-input>    
   <ion-button id="getCarritoById" (click)="getCarritoById()">Obtener Carrito</ion-button>
+  <ion-button id="deleteCarrito" (click)="deleteCarrito(id)">Eliminar Carrito</ion-button>
 </ion-item>
 <ion-item>
   <div *ngIf="carritoCompra">
@@ -39,7 +40,7 @@
 
 <h2>Agregar - Actualizar Detalle Carrito</h2>
 <ion-item>
-  <ion-input id="idDetalle" type="number" placeholder="Ingrese Id Proveedor" [(ngModel)]="idDetalle"></ion-input>
+  <ion-input id="idDetalle" type="number" placeholder="Ingrese Id Carrito" [(ngModel)]="idDetalle"></ion-input>
   <ion-input id="cantidad" type="number" placeholder="Ingrese la cantidad" [(ngModel)]="cantidad"></ion-input>
   <ion-input id="idProducto" type="number" placeholder="Ingrese el idProducto" [(ngModel)]="idProducto"></ion-input>
   <ion-input id="idCarritoCompra" type="number" placeholder="Ingrese el idCarritoCompra" [(ngModel)]="idCarritoCompra"></ion-input>
@@ -53,6 +54,7 @@
 <ion-item>
   <ion-input id="idDetalle" type="number" placeholder="Ingrese Id Detalle" [(ngModel)]="idDetalle"></ion-input>    
   <ion-button id="getDetalleById" (click)="getDetalleById()">Obtener Detalle</ion-button>
+  <ion-button id="deleteDetalle" (click)="deleteDetalle(idDetalle)">Eliminar Detalle</ion-button>
 </ion-item>
 <ion-item>
   <div *ngIf="detalleCarrito">

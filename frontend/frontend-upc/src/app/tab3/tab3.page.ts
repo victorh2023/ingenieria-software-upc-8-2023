@@ -130,6 +130,7 @@ export class Tab3Page {
                 if (response.body == 1) {
                 alert("Se eliminó el producto con éxito :)");
                 this.getProductoFromBackend(); // Se actualiza el listado
+                
                 } else {
                 alert("Al eliminar el Producto falló :(");
                 }

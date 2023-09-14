@@ -134,8 +134,33 @@ private getCarritoByIDFromBackend(id: number) {
       });
   }
 
+  // Metodo public Eliminar Carrito por ID
+  public deleteCarrito(id: number) {
+    this.deleteCarritoFromBackend(id);
+}
 
-  // Metodos para Detalle de Carrito
+// Eliminar Carrito por ID
+private deleteCarritoFromBackend(id: number) {
+    this.carritoService.Delete(id).subscribe({
+        next: (response: HttpResponse<any>) => {
+            if (response.body == 1) {
+            alert("Se eliminó el Carrito con éxito :)");
+            this.getCarritoFromBackend(); // Se actualiza el listado            
+            } else {
+            alert("Al eliminar el Carrito falló :(");
+            }
+        },
+        error: (error: any) => {
+            console.log(error);
+        },
+        complete: () => {
+            //console.log('complete - this.deleteCarrito()');
+        },
+    });
+}
+
+
+  ///// Metodos para Detalle de Carrito
 
   private getDetalleFromBackend(){
     this.detalleService.GetAll().subscribe({
@@ -240,5 +265,31 @@ private getCarritoByIDFromBackend(id: number) {
         },
     });
   }
+
+    // Metodo public Eliminar Carrito por ID
+    public deleteDetalle(id: number) {
+      this.deleteDetalleFromBackend(id);
+  }
+  
+  // Eliminar Detalle por ID
+  private deleteDetalleFromBackend(id: number) {
+      this.detalleService.Delete(id).subscribe({
+          next: (response: HttpResponse<any>) => {
+              if (response.body == 1) {
+              alert("Se eliminó el Detalle con éxito :)");
+              this.getDetalleFromBackend(); // Se actualiza el listado            
+              } else {
+              alert("Al eliminar el Detalle falló :(");
+              }
+          },
+          error: (error: any) => {
+              console.log(error);
+          },
+          complete: () => {
+              //console.log('complete - this.deleteDetalle()');
+          },
+      });
+  }
+  
 
 }

@@ -132,7 +132,23 @@ ALTER TABLE DETALLE_CARRITO
   ADD CONSTRAINT "FK_DETALLE_CARRITO_TO_CARRITO_COMPRA" 
   FOREIGN KEY("ID_CARRITO_COMPRA")
   REFERENCES CARRITO_COMPRA("ID");
+--
 
+-- /////////////////////////////// AGREGAR COLUMNAS PARA LA GESTION DE PRECIOS
+-- Agregar columnas a las tablas detalle carrito y producto:
+-- Tabla detalle carrito:
+--	precio_venta: decimal
+-- Tabla producto:
+--	precio_unitario: decimal
+
+-- Agregar columna precio_venta a la tabla detalle carrito
+ALTER TABLE DETALLE_CARRITO
+ADD COLUMN precio_venta decimal NOT NULL DEFAULT 0;
+
+-- Agregar columna precio_unitario a la tabla producto
+ALTER TABLE PRODUCTO
+ADD COLUMN precio_unitario decimal NOT NULL DEFAULT 0;
+--
 --/////////////////////////Tabla para gestionar las funcionalidades del sistema///////////////////////////////////////////
 
 CREATE TABLE GESTION_FUNCIONALIDADES
@@ -242,76 +258,6 @@ INSERT INTO [dbo].[DETALLE_CARRITO]([CANTIDAD], [ID_PRODUCTO], [ID_CARRITO_COMPR
 
 */
 
-/*
---/////////////////////////PROVEEDOR///////////////////////////////////////////
-
-IF OBJECT_ID('PROVEEDOR', 'U') IS NOT NULL 
-  DROP TABLE PROVEEDOR; 
-GO
-
-CREATE TABLE PROVEEDOR
-(
-  "ID"                          INT IDENTITY(1,1),
-  "RAZON_SOCIAL"                VARCHAR(100) NOT NULL,
-  "NIT"                         VARCHAR(20) NOT NULL,
-  "DIRECCION"                   VARCHAR(200) NOT NULL,
-  "NOMBRE_PROVEEDOR"            VARCHAR(100) NOT NULL,
-  "TELEFONO"                    VARCHAR(20) NOT NULL,
-  "EMAIL"                       VARCHAR(100) NOT NULL,
-  "USUARIO_REGISTRO"            VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
-  "FECHA_REGISTRO"              DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_REGISTRO"             INT DEFAULT 1 NOT NULL, 
-  CONSTRAINT PROVEEDOR_PK      PRIMARY KEY (ID)
-);  
-
-
---Generar un script para poblar la tabla PEDIDO con pedidos aleatorios y no repetidos, utilizando números aleatorios entre 1 y 100 para los atributos ID_USUARIO. a continuacion es scrip de la tabla PEDIDO: 
-
---/////////////////////////PEDIDO///////////////////////////////////////////
-
-IF OBJECT_ID('PEDIDO', 'U') IS NOT NULL 
-  DROP TABLE PEDIDO; 
-GO
-
-CREATE TABLE PEDIDO
-(
-  "ID"                          INT IDENTITY(1,1),
-  "ID_USUARIO"                  INT NOT NULL,
-  "FECHA_PEDIDO"                DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_PEDIDO"               INT DEFAULT 1 NOT NULL,
-  "USUARIO_REGISTRO"            VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
-  "FECHA_REGISTRO"              DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_REGISTRO"             INT DEFAULT 1 NOT NULL, 
-  CONSTRAINT PEDIDO_PK          PRIMARY KEY (ID),
-  CONSTRAINT FK_PEDIDO_USUARIO  FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID)
-);
-
---Generar un script para poblar la tabla DETALLE_PEDIDO con 100 filas con datos aleatorios y no repetidos, utilizando números aleatorios entre 1 y 50 para los atributos ID_USUARIO e ID_PROVEEDOR. a continuacion es scrip de la tabla DETALLE_PEDIDO: 
-
---/////////////////////////DETALLE DE PEDIDO/////////////////////////////////
-
-IF OBJECT_ID('DETALLE_PEDIDO', 'U') IS NOT NULL 
-  DROP TABLE DETALLE_PEDIDO; 
-GO
-
-CREATE TABLE DETALLE_PEDIDO
-(
-  "ID_PEDIDO"                   INT NOT NULL,
-  "ID_PRODUCTO"                 INT NOT NULL,
-  "ID_PROVEEDOR"                INT NOT NULL,
-  "CANTIDAD"                    INT NOT NULL,
-  "USUARIO_REGISTRO"            VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
-  "FECHA_REGISTRO"              DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_REGISTRO"             INT DEFAULT 1 NOT NULL, 
-  CONSTRAINT PK_DETALLE_PEDIDO   PRIMARY KEY (ID_PEDIDO, ID_PRODUCTO),
-  CONSTRAINT FK_DETALLE_PEDIDO_PEDIDO    FOREIGN KEY (ID_PEDIDO) REFERENCES PEDIDO(ID),
-  CONSTRAINT FK_DETALLE_PEDIDO_PRODUCTO  FOREIGN KEY (ID_PRODUCTO) REFERENCES PRODUCTO(ID),
-  CONSTRAINT FK_DETALLE_PEDIDO_PROVEEDOR FOREIGN KEY (ID_PROVEEDOR) REFERENCES PROVEEDOR(ID)
-);
-
-
-
-*/
 
 --  /*************************PROCEDIMIENTOS ALMACENADOS******************************\
 -- /                                                                                  \
