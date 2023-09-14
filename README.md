@@ -12,13 +12,11 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Hermes Ernesto Cayalo Soria - hcayalo@gmail.com -78130097
 
-## Michael Veliz Cadima - michaelVelizcadima@gmail.com - 75682018
+## Victor Hugo Condori Bejarano - victorhugocondoribejarano@gmail.com - 60961276
 
-## Mychel Peña Breton - mayk.d7@gmail.com - 71752777
 
-## Carlos Edgar Coronado Luján - unmen00@gmail.com - 61531769
 
-## Gary Ronald Luna Humerez - gronaldlh@gmail.com - 70066576
+
 
 ## Victor Hugo Condori Bejarano - victorhugocondoribejarano@gmail.com - 60961276
 

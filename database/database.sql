@@ -132,10 +132,81 @@ ALTER TABLE DETALLE_CARRITO
   ADD CONSTRAINT "FK_DETALLE_CARRITO_TO_CARRITO_COMPRA" 
   FOREIGN KEY("ID_CARRITO_COMPRA")
   REFERENCES CARRITO_COMPRA("ID");
+--
 
+-- /////////////////////////////// AGREGAR COLUMNAS PARA LA GESTION DE PRECIOS
+-- Agregar columnas a las tablas detalle carrito y producto:
+-- Tabla detalle carrito:
+--	precio_venta: decimal
+-- Tabla producto:
+--	precio_unitario: decimal
 
-  
+-- Agregar columna precio_venta a la tabla detalle carrito
+ALTER TABLE DETALLE_CARRITO
+ADD COLUMN precio_venta decimal NOT NULL DEFAULT 0;
 
+-- Agregar columna precio_unitario a la tabla producto
+ALTER TABLE PRODUCTO
+ADD COLUMN precio_unitario decimal NOT NULL DEFAULT 0;
+--
+--/////////////////////////Tabla para gestionar las funcionalidades del sistema///////////////////////////////////////////
+
+CREATE TABLE GESTION_FUNCIONALIDADES
+(
+  "ID" INT IDENTITY(1, 1) PRIMARY KEY,
+  "NOMBRE" VARCHAR(100) NOT NULL,
+  "DESCRIPCION" VARCHAR(255),
+  "USUARIO_REGISTRO" VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
+  "FECHA_REGISTRO" DATETIME DEFAULT GETDATE() NOT NULL,
+  "ESTADO_REGISTRO" INT DEFAULT 1 NOT NULL
+);
+
+-- // TRIGGER
+CREATE TABLE BITACORA (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    FECHA_HORA DATETIME,
+    EVENTO VARCHAR(100),
+    VALOR_ANTIGUO NVARCHAR(100),
+    VALOR_NUEVO NVARCHAR(100)
+);
+
+CREATE TRIGGER TRIGGER_BITACORA
+ON USUARIOS
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+  DECLARE @Evento VARCHAR(100);
+    SET @Evento = '';
+
+  IF EXISTS (SELECT * FROM INSERTED)
+    BEGIN
+        SET @Evento = @Evento + 'Se insertaron registros en la tabla USUARIOS. ';
+    END
+
+  IF EXISTS (SELECT * FROM DELETED)
+  BEGIN
+      SET @Evento = @Evento + 'Se eliminaron registros de la tabla USUARIOS. ';
+  END
+
+  IF UPDATE(USER_NAME)
+  BEGIN
+      SET @Evento = @Evento + 'Se actualizó el campo USER_NAME en la tabla USUARIOS. ';
+      INSERT INTO BITACORA (FECHA_HORA, EVENTO, VALOR_ANTIGUO, VALOR_NUEVO)
+      SELECT
+          GETDATE(),
+          @Evento,
+          d.USER_NAME,
+          i.USER_NAME
+      FROM INSERTED i
+      FULL OUTER JOIN DELETED d ON i.ID = d.ID;
+  END
+
+    IF @Evento != ''
+    BEGIN
+        INSERT INTO BitacoraUsuarios (FECHA_HORA, EVENTO)
+        VALUES (GETDATE(), @Evento);
+    END
+END;
 /*
 
 
@@ -144,7 +215,23 @@ select * from CATEGORIA_PRODUCTO //Backend
 select * from PRODUCTO //Backend
 select * from CARRITO_COMPRA //Backend
 select * from DETALLE_CARRITO
+select * from GESTION_FUNCIONALIDADES
 
+/FUNCIONALIDADES/
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Iniciar sesión en el sistema', 'Permite a los usuarios iniciar sesión en el sistema', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Visualizar información del perfil', 'Permite a los usuarios ver su información de perfil', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Administración de Productos', 'Permite a los usuarios administrar productos en el sistema', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Administración de Carrito de Compra', 'Permite a los usuarios administrar su carrito de compra', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Registro de actividades', 'Permite el registro de actividades de usuarios en el sistema', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Visualizar información de proveedor', 'Permite a los usuarios ver la información de los proveedores', 'Admin', GETDATE(), 1);
+INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
+VALUES ('Administración de Categorías de Productos', 'Permite a los usuarios administrar las categorías de productos en el sistema', 'Admin', GETDATE(), 1);
 
 
 
@@ -171,73 +258,33 @@ INSERT INTO [dbo].[DETALLE_CARRITO]([CANTIDAD], [ID_PRODUCTO], [ID_CARRITO_COMPR
 
 */
 
-/*
---/////////////////////////PROVEEDOR///////////////////////////////////////////
 
-IF OBJECT_ID('PROVEEDOR', 'U') IS NOT NULL 
-  DROP TABLE PROVEEDOR; 
-GO
+--  /*************************PROCEDIMIENTOS ALMACENADOS******************************\
+-- /                                                                                  \
+--/  
+--****** Buscar segun nombre y contrasenia y devuelve todos los sus datos ************
+CREATE PROCEDURE SearchUserByUserAndPass
+    @UserName VARCHAR(40),
+    @Password VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-CREATE TABLE PROVEEDOR
-(
-  "ID"                          INT IDENTITY(1,1),
-  "RAZON_SOCIAL"                VARCHAR(100) NOT NULL,
-  "NIT"                         VARCHAR(20) NOT NULL,
-  "DIRECCION"                   VARCHAR(200) NOT NULL,
-  "NOMBRE_PROVEEDOR"            VARCHAR(100) NOT NULL,
-  "TELEFONO"                    VARCHAR(20) NOT NULL,
-  "EMAIL"                       VARCHAR(100) NOT NULL,
-  "USUARIO_REGISTRO"            VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
-  "FECHA_REGISTRO"              DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_REGISTRO"             INT DEFAULT 1 NOT NULL, 
-  CONSTRAINT PROVEEDOR_PK      PRIMARY KEY (ID)
-);  
+    SELECT *
+    FROM USUARIOS
+    WHERE USER_NAME = @UserName AND PASSWORD = @Password AND ESTADO_REGISTRO = 1;
+END
 
 
---Generar un script para poblar la tabla PEDIDO con pedidos aleatorios y no repetidos, utilizando números aleatorios entre 1 y 100 para los atributos ID_USUARIO. a continuacion es scrip de la tabla PEDIDO: 
+--****** modificar la contrasenia segun le mandemos el ID y el password ************
+CREATE PROCEDURE changeUserPasswordDB
+    @UserID INT,
+    @NewPassword VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
 
---/////////////////////////PEDIDO///////////////////////////////////////////
-
-IF OBJECT_ID('PEDIDO', 'U') IS NOT NULL 
-  DROP TABLE PEDIDO; 
-GO
-
-CREATE TABLE PEDIDO
-(
-  "ID"                          INT IDENTITY(1,1),
-  "ID_USUARIO"                  INT NOT NULL,
-  "FECHA_PEDIDO"                DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_PEDIDO"               INT DEFAULT 1 NOT NULL,
-  "USUARIO_REGISTRO"            VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
-  "FECHA_REGISTRO"              DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_REGISTRO"             INT DEFAULT 1 NOT NULL, 
-  CONSTRAINT PEDIDO_PK          PRIMARY KEY (ID),
-  CONSTRAINT FK_PEDIDO_USUARIO  FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS(ID)
-);
-
---Generar un script para poblar la tabla DETALLE_PEDIDO con 100 filas con datos aleatorios y no repetidos, utilizando números aleatorios entre 1 y 50 para los atributos ID_USUARIO e ID_PROVEEDOR. a continuacion es scrip de la tabla DETALLE_PEDIDO: 
-
---/////////////////////////DETALLE DE PEDIDO/////////////////////////////////
-
-IF OBJECT_ID('DETALLE_PEDIDO', 'U') IS NOT NULL 
-  DROP TABLE DETALLE_PEDIDO; 
-GO
-
-CREATE TABLE DETALLE_PEDIDO
-(
-  "ID_PEDIDO"                   INT NOT NULL,
-  "ID_PRODUCTO"                 INT NOT NULL,
-  "ID_PROVEEDOR"                INT NOT NULL,
-  "CANTIDAD"                    INT NOT NULL,
-  "USUARIO_REGISTRO"            VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
-  "FECHA_REGISTRO"              DATETIME DEFAULT getdate() NOT NULL,
-  "ESTADO_REGISTRO"             INT DEFAULT 1 NOT NULL, 
-  CONSTRAINT PK_DETALLE_PEDIDO   PRIMARY KEY (ID_PEDIDO, ID_PRODUCTO),
-  CONSTRAINT FK_DETALLE_PEDIDO_PEDIDO    FOREIGN KEY (ID_PEDIDO) REFERENCES PEDIDO(ID),
-  CONSTRAINT FK_DETALLE_PEDIDO_PRODUCTO  FOREIGN KEY (ID_PRODUCTO) REFERENCES PRODUCTO(ID),
-  CONSTRAINT FK_DETALLE_PEDIDO_PROVEEDOR FOREIGN KEY (ID_PROVEEDOR) REFERENCES PROVEEDOR(ID)
-);
-
-
-
-*/
+    UPDATE USUARIOS
+    SET PASSWORD = @NewPassword
+    WHERE ID = @UserID;
+END
