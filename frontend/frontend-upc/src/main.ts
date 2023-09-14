@@ -4,9 +4,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-/* import { IonicStorageModule } from '@ionic/storage-angular';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import {Drivers} from '@ionic/storage';
- */
+
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { ROUTES, RouteReuseStrategy, provideRouter } from '@angular/router';
@@ -15,10 +15,10 @@ if (environment.production) {
   enableProdMode();
 }
 
-/* platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 
-  bootstrapApplication(AppComponent,{
+/*   bootstrapApplication(AppComponent,{
     providers: [
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
       importProvidersFrom(IonicModule.forRoot({})),
@@ -29,7 +29,7 @@ if (environment.production) {
       })
       ),
       
-      provideRouter(routes),
+      
     ],
   }); */
   platformBrowserDynamic().bootstrapModule(AppModule)
