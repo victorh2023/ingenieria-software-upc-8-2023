@@ -12,6 +12,7 @@ Asignatura de Ingeniería de Software del modulo 8-2023
 
 ## Hermes Ernesto Cayalo Soria - hcayalo@gmail.com -78130097
 
+## Victor Hugo Condori Bejarano - victorhugocondoribejarano@gmail.com - 60961276
 
 
 
