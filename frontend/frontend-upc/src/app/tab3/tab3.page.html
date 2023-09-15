@@ -2,6 +2,18 @@
   <ion-toolbar color="primary">
     <ion-title class="ion-text-center">Producto</ion-title>
   </ion-toolbar>
+  <style>
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -58,7 +70,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-header>
       <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
     </ion-card-header>
@@ -70,4 +82,32 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-</ion-content>
+-->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>ID Categoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaProducto">
+              <td>{{ item.id }}</td>
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.idCategoria }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content> 

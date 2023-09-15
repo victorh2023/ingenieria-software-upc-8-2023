@@ -2,6 +2,18 @@
   <ion-toolbar color="primary">
     <ion-title class="ion-text-center">Carrito de Compra</ion-title>
   </ion-toolbar>
+  <style>
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -111,7 +123,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-header>
       <ion-card-title class="ion-text-center">Últimos 5 Carritos</ion-card-title>
     </ion-card-header>
@@ -122,9 +134,33 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->  
 
   <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Últimos 5 Carritos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>ID Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaCarrito">
+            <td>{{ item.id }}</td>
+            <td>{{ item.fecha }}</td>
+            <td>{{ item.idUsuario }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
     <ion-card-header>
       <ion-card-title class="ion-text-center">Últimos 5 Detalles de Carrito</ion-card-title>
     </ion-card-header>
@@ -135,5 +171,35 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
+  </ion-card> -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Últimos 5 Detalles de Carrito</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cantidad</th>
+            <th>ID Producto</th>
+            <th>ID Carrito de Compra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaDetalle">
+            <td>{{ item.id }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.idProducto }}</td>
+            <td>{{ item.idCarritoCompra }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card-content>
   </ion-card>
+  
+
+
+
 </ion-content>
