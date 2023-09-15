@@ -161,6 +161,18 @@ CREATE TABLE GESTION_FUNCIONALIDADES
   "ESTADO_REGISTRO" INT DEFAULT 1 NOT NULL
 );
 
+--/////////////////////////Tabla de roles de usuario///////////////////////////////////////////
+
+CREATE TABLE ROLES_USUARIO
+(
+  "ID" INT IDENTITY(1,1) PRIMARY KEY,
+  "NOMBRE_ROL" VARCHAR(50) NOT NULL,
+  "DESCRIPCION" VARCHAR(255),
+  "USUARIO_REGISTRO" VARCHAR(50) DEFAULT SYSTEM_USER NOT NULL,
+  "FECHA_REGISTRO" DATETIME DEFAULT GETDATE() NOT NULL,
+  "ESTADO_REGISTRO" INT DEFAULT 1 NOT NULL
+);
+
 /*
 
 
@@ -170,6 +182,7 @@ select * from PRODUCTO //Backend
 select * from CARRITO_COMPRA //Backend
 select * from DETALLE_CARRITO
 select * from GESTION_FUNCIONALIDADES
+select * from ROLES_USUARIO
 
 /FUNCIONALIDADES/
 INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
@@ -187,7 +200,13 @@ VALUES ('Visualizar información de proveedor', 'Permite a los usuarios ver la i
 INSERT INTO GESTION_FUNCIONALIDADES ("NOMBRE", "DESCRIPCION", "USUARIO_REGISTRO", "FECHA_REGISTRO", "ESTADO_REGISTRO")
 VALUES ('Administración de Categorías de Productos', 'Permite a los usuarios administrar las categorías de productos en el sistema', 'Admin', GETDATE(), 1);
 
-
+/ROLES DE USUARIO/
+INSERT INTO ROLES_USUARIO ("NOMBRE_ROL", "DESCRIPCION")
+VALUES ('Usuario del sistema', 'Rol para usuarios regulares');
+INSERT INTO ROLES_USUARIO ("NOMBRE_ROL", "DESCRIPCION")
+VALUES ('Vendedor', 'Rol para vendedores');
+INSERT INTO ROLES_USUARIO ("NOMBRE_ROL", "DESCRIPCION")
+VALUES ('Administrador del sistema', 'Rol para administradores');
 
 INSERT INTO [dbo].[USUARIOS]([USER_NAME], [NOMBRE_COMPLETO], [PASSWORD]) VALUES ('jorge.c', 'Jorge Campos', '2023') 
 
