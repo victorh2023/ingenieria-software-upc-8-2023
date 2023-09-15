@@ -47,4 +47,16 @@
       </ion-item>
     </ion-list>
 
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Últimos 5 Detalles de Carrito</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of listaDetalle">
+          <p><b>ID:</b> {{ item.id }}, <b>Cantidad:</b> {{ item.cantidad }}, <b>ID Producto:</b> {{ item.idProducto }}, <b>ID Carrito de Compra:</b> {{ item.idCarritoCompra }}</p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

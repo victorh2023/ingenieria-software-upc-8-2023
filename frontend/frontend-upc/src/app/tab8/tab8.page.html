@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Panel de Administración</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="primary">
+      <ion-title size="large" class="ion-text-center">Panel de Administración</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Funcionalidades -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Funcionalidades</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <!-- Botones para Funcionalidades -->
+      <ion-button expand="full" (click)="mostrarFuncionalidades()">Mostrar</ion-button>
+      <ion-button expand="full" (click)="agregarFuncionalidad()">Agregar</ion-button>
+      <ion-button expand="full" (click)="editarFuncionalidad()">Editar</ion-button>
+      <ion-button expand="full" (click)="eliminarFuncionalidad()">Eliminar</ion-button>
+
+      <!-- Lista de Funcionalidades -->
+      <ion-list *ngIf="listaFuncionalidades.length > 0">
+        <ion-item *ngFor="let funcionalidad of listaFuncionalidades">
+          <ion-label>{{ funcionalidad.nombre }}</ion-label>
+          <ion-note slot="end">{{ funcionalidad.descripcion }}</ion-note>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="listaFuncionalidades.length === 0" class="ion-text-center">
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Roles de Usuario -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Roles de Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <!-- Botones para Roles de Usuario -->
+      <ion-button expand="full" (click)="mostrarRolesUsuario()">Mostrar</ion-button>
+      <ion-button expand="full" (click)="agregarRolUsuario()">Agregar</ion-button>
+      <ion-button expand="full" (click)="editarRolUsuario()">Editar</ion-button>
+      <ion-button expand="full" (click)="eliminarRolUsuario()">Eliminar</ion-button>
+
+      <!-- Lista de Roles de Usuario -->
+      <ion-list *ngIf="listaRolesUsuarios.length > 0">
+        <ion-item *ngFor="let rol of listaRolesUsuarios">
+          <ion-label>{{ rol.nombrE_ROL }}</ion-label>
+          <ion-note slot="end">{{ rol.descripcion }}</ion-note>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="listaRolesUsuarios.length === 0" class="ion-text-center">
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
