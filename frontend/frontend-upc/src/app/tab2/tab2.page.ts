@@ -113,7 +113,7 @@ export class Tab2Page {
               this.nombre = "";
 
           }else{
-              alert("Al agregar al USUARIO fallo exito :(");
+              alert("Fallo al agregar al Categoria Producto :(");
           }
       },
       error: (error: any) => {
@@ -134,7 +134,7 @@ export class Tab2Page {
     this.categoriaProductoService.Delete(id).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.body == 1) {
-          alert("Se eliminó el producto con éxito :)");
+          alert("Se eliminó el Producto con éxito :)");
           this.getCategoriaFromBackend(); // Se actualiza el listado
         } else {
           alert("Al eliminar el Producto falló :(");

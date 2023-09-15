@@ -68,17 +68,18 @@
         <ion-input type="number" [(ngModel)]="idDetalle"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Cantidad</ion-label>
-        <ion-input type="number" [(ngModel)]="cantidad"></ion-input>
+        <ion-label position="floating">ID del Carrito de Compra</ion-label>
+        <ion-input type="number" [(ngModel)]="idCarritoCompra"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">ID del Producto</ion-label>
         <ion-input type="number" [(ngModel)]="idProducto"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">ID del Carrito de Compra</ion-label>
-        <ion-input type="number" [(ngModel)]="idCarritoCompra"></ion-input>
+        <ion-label position="floating">Cantidad</ion-label>
+        <ion-input type="number" [(ngModel)]="cantidad"></ion-input>
       </ion-item>
+
       <ion-button expand="full" color="primary" (click)="addDetalleCarrito()">Agregar Detalle</ion-button>
       <ion-button expand="full" color="primary" (click)="updateDetalle()">Actualizar Detalle</ion-button>
     </ion-card-content>

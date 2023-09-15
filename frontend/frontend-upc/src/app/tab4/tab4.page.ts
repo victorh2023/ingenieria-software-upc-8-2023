@@ -53,25 +53,25 @@ export class Tab4Page {
     });
   } 
 //Obtener Carrito de Compras por ID
-public  getCarritoById(){
-  this.getCarritoByIDFromBackend(this.id);
-}
-private getCarritoByIDFromBackend(id: number) {
-  this.carritoService.GetById(id).subscribe({
-      next: (response: HttpResponse<any>) => {
-          // Asignar el Carrito obtenido a la propiedad carrito
-          this.carritoCompra = response.body;
-          console.log(this.carritoCompra)
-          // console.log(response.body);
-      },
-      error: (error: any) => {
-          console.log(error);
-      },
-      complete: () => {
-          //console.log('complete - this.getByIDFromBackend()');
-      },
-  });
-}
+    public  getCarritoById(){
+    this.getCarritoByIDFromBackend(this.id);
+    }
+    private getCarritoByIDFromBackend(id: number) {
+    this.carritoService.GetById(id).subscribe({
+        next: (response: HttpResponse<any>) => {
+            // Asignar el Carrito obtenido a la propiedad carrito
+            this.carritoCompra = response.body;
+            console.log(this.carritoCompra)
+            // console.log(response.body);
+        },
+        error: (error: any) => {
+            console.log(error);
+        },
+        complete: () => {
+            //console.log('complete - this.getByIDFromBackend()');
+        },
+    });
+    }
 
 // Agregar Carrito de compras
   public addCarrito(){
@@ -116,13 +116,13 @@ private getCarritoByIDFromBackend(id: number) {
       next: (response: HttpResponse<any>) => {
           console.log(response.body)//1
           if(response.body == 1){
-              alert("Se Actualizó el Carrito con exito :)");
+              alert("Se Actualizó el CARRITO con exito :)");
               this.getCarritoFromBackend();//Se actualize el listado
               this.id = 0;
               this.fecha = new Date();
               this.idUsuario = 0;
           }else{
-              alert("Error Al actualizar al Carrito:(");
+              alert("Error Al actualizar al CARRITO:(");
           }
           },
           error: (error: any) => {
@@ -144,10 +144,10 @@ private deleteCarritoFromBackend(id: number) {
     this.carritoService.Delete(id).subscribe({
         next: (response: HttpResponse<any>) => {
             if (response.body == 1) {
-            alert("Se eliminó el Carrito con éxito :)");
+            alert("Se eliminó el CARRITO con éxito :)");
             this.getCarritoFromBackend(); // Se actualiza el listado            
             } else {
-            alert("Al eliminar el Carrito falló :(");
+            alert("Al eliminar el CARRITO falló :(");
             }
         },
         error: (error: any) => {
@@ -213,13 +213,13 @@ private deleteCarritoFromBackend(id: number) {
     next: (response: HttpResponse<any>) => {
       console.log(response.body)//1
       if(response.body == 1){
-          alert("Se agrego el USUARIO con exito :)");
+          alert("Se agrego el DETALLE con exito :)");
           this.getDetalleFromBackend();//Se actualize el listado
           this.cantidad = 0;
           this.idProducto= 0;
           this.idCarritoCompra = 0;
       }else{
-          alert("Al agregar al USUARIO fallo exito :(");
+          alert("Al agregar al DETALLE fallo exito :(");
       }
     },
     error: (error: any) => {
@@ -276,10 +276,10 @@ private deleteCarritoFromBackend(id: number) {
       this.detalleService.Delete(id).subscribe({
           next: (response: HttpResponse<any>) => {
               if (response.body == 1) {
-              alert("Se eliminó el Detalle con éxito :)");
+              alert("Se eliminó el DETALLE con éxito :)");
               this.getDetalleFromBackend(); // Se actualiza el listado            
               } else {
-              alert("Al eliminar el Detalle falló :(");
+              alert("Al eliminar el DETALLE falló :(");
               }
           },
           error: (error: any) => {
