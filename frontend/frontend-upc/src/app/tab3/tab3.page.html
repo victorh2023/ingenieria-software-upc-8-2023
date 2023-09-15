@@ -1,45 +1,73 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Producto
-    </ion-title>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Producto</ion-title>
+    <ion-toolbar color="primary">
+      <ion-title size="large" class="ion-text-center">Producto</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-item>
-    <ion-input id="id" type="number" placeholder="Ingrese Id del Producto" [(ngModel)]="id"></ion-input>
-    <ion-input id="nombre" type="text" placeholder="Ingrese el Nombre de la Producto" [(ngModel)]="nombre"></ion-input>
-    <ion-input id="idCategoria" type="number" placeholder="Ingrese el ID de la Categoria" [(ngModel)]="idCategoria"></ion-input>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Agregar o Actualizar Producto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">ID del Producto</ion-label>
+        <ion-input type="number" [(ngModel)]="id"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombre del Producto</ion-label>
+        <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">ID de la Categoría</ion-label>
+        <ion-input type="number" [(ngModel)]="idCategoria"></ion-input>
+      </ion-item>
+      <ion-button expand="full" color="primary" (click)="addProducto()">Agregar Producto</ion-button>
+      <ion-button expand="full" color="primary" (click)="updateProducto(id, nombre, idCategoria)">Actualizar Producto</ion-button>
+    </ion-card-content>
+  </ion-card>
 
-    <ion-button id="addProducto" (click)="addProducto()">Agregar Producto</ion-button>
-    <ion-button id="updateProducto" (click)="updateProducto(id, nombre, idCategoria)">Actualizar Producto</ion-button>    
-  </ion-item>
-  <br>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Obtener o Eliminar Producto por ID</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">ID del Producto</ion-label>
+        <ion-input type="number" [(ngModel)]="id"></ion-input>
+      </ion-item>
+      <ion-button expand="full" color="primary" (click)="getById()">Obtener Producto</ion-button>
+      <ion-button expand="full" color="danger" (click)="deleteProducto(id)">Eliminar Producto</ion-button>
+    </ion-card-content>
+  </ion-card>
 
-  <h2>Obtener - Eliminar Producto por ID</h2>
-  <ion-item>
-    <ion-input id="id" type="number" placeholder="Ingrese Id del Producto" [(ngModel)]="id"></ion-input>    
-    <ion-button id="getById" (click)="getById()">Obtener Producto</ion-button>
-    <ion-button id="deleteProducto" (click)="deleteProducto(id)">Eliminar Producto</ion-button>
-  </ion-item>
-  <ion-item>
-  <div *ngIf="producto">
-    <p><strong>ID:</strong> {{ producto.id }}</p>
-    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
-    <p><strong>ID Categoria:</strong> {{ producto.idCategoria }}</p>
-  </div>
-  </ion-item>
+  <ion-card *ngIf="producto">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Detalles del Producto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>ID:</strong> {{ producto.id }}</p>
+      <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+      <p><strong>ID Categoría:</strong> {{ producto.idCategoria }}</p>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-list>
-    <ion-item *ngFor="let item of listaProducto">
-      <b>id</b>:{{item.id}};<b>nombre</b>:{{item.nombre}}; <b>idCategoria</b>:{{item.idCategoria}};
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of listaProducto">
+          <p><b>ID:</b> {{ item.id }}, <b>Nombre:</b> {{ item.nombre }}, <b>ID Categoría:</b> {{ item.idCategoria }}</p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
