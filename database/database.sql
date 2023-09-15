@@ -143,11 +143,11 @@ ALTER TABLE DETALLE_CARRITO
 
 -- Agregar columna precio_venta a la tabla detalle carrito
 ALTER TABLE DETALLE_CARRITO
-ADD COLUMN precio_venta decimal NOT NULL DEFAULT 0;
+ADD  precio_venta decimal NOT NULL DEFAULT 0;
 
 -- Agregar columna precio_unitario a la tabla producto
 ALTER TABLE PRODUCTO
-ADD COLUMN precio_unitario decimal NOT NULL DEFAULT 0;
+ADD  precio_unitario decimal NOT NULL DEFAULT 0;
 --
 --/////////////////////////Tabla para gestionar las funcionalidades del sistema///////////////////////////////////////////
 
