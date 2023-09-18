@@ -46,14 +46,13 @@
 
   <br>
     <ion-list>
-      <ion-item *ngFor="let item of listaProducto">
-        <ion-label position="float">{{item.nombre}}</ion-label>  
-        <ion-label position="float">{{item.idCategoria}}</ion-label>  
-      </ion-item>
-      <ion-button expand="full" color="primary" (click)="getById()">Obtener Producto</ion-button>
-      <ion-button expand="full" color="danger" (click)="deleteProducto(id)">Eliminar Producto</ion-button>
-    </ion-card-content>
-  </ion-card>
+        <ion-item *ngFor="let item of listaProducto">
+          <ion-label position="float">{{item.nombre}}</ion-label>  
+          <ion-label position="float">{{item.idCategoria}}</ion-label>  
+        </ion-item>
+        <ion-button expand="full" color="primary" (click)="getById()">Obtener Producto</ion-button>
+        <ion-button expand="full" color="danger" (click)="deleteProducto(id)">Eliminar Producto</ion-button>
+    </ion-list>
 
   <ion-card *ngIf="producto">
     <ion-card-header>
@@ -66,19 +65,19 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor="let item of listaProducto">
-          <p><b>ID:</b> {{ item.id }}, <b>Nombre:</b> {{ item.nombre }}, <b>ID Categoría:</b> {{ item.idCategoria }}</p>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
--->
+                <!-- <ion-card>
+                  <ion-card-header>
+                    <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-list>
+                      <ion-item *ngFor="let item of listaProducto">
+                        <p><b>ID:</b> {{ item.id }}, <b>Nombre:</b> {{ item.nombre }}, <b>ID Categoría:</b> {{ item.idCategoria }}</p>
+                      </ion-item>
+                    </ion-list>
+                  </ion-card-content>
+                </ion-card>
+              -->
 
   <ion-card>
     <ion-card-header>
@@ -105,5 +104,4 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-
 </ion-content> 
