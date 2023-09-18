@@ -1,3 +1,13 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Usuarios
+    </ion-title>
+    <ion-button (click)="modalIniciaSecion()">Inicio secion</ion-button>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-header [translucent]="true">
     <ion-toolbar color="primary">
@@ -15,16 +25,21 @@
   </ion-header>
 
  
-  <ion-item color="danger">
-    <ion-label position="float">Nombre y Apellido;</ion-label> 
-    <ion-input id="nombreCompleto" type="text" placeholder="__________" [(ngModel)]="nombreCompleto"></ion-input>
-    <ion-label position="float">User Name;</ion-label>   
-    <ion-input id="userName" type="text" placeholder="__________" [(ngModel)]="userName"></ion-input>
-    <ion-label position="float">Password;</ion-label> 
-    <ion-input id="password" type="text" placeholder="__________" [(ngModel)]="password"></ion-input>
-    
-    <ion-button expand="block" fill="outline" id="addUsuario" (click)="addUsuario()">Agregar Usuario</ion-button>
-    <br>
+    <ion-item>
+      <ion-input id="nombreCompleto" type="text" placeholder="Ingrese el Nombre Completo" [(ngModel)]="nombreCompleto"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input id="userName" type="text" placeholder="Ingrese su User Name" [(ngModel)]="userName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input id="password" type="text" placeholder="Ingrese la Contraseña" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-button id="addUsuario" (click)="addUsuario()">Agregar Usuario</ion-button>
+
+<br>
+<ion-list>
+  <ion-item *ngFor="let item of listaUsuarios">
+    <b>Nombre</b>:{{item.nombreCompleto}}; <b>UserName</b>:{{item.userName}}; <b>Pass</b>:{{item.password}}
   </ion-item>
 
   <ion-list>

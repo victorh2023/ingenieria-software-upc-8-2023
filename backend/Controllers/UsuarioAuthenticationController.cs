@@ -1,9 +1,15 @@
 
+using System.IdentityModel.Tokens.Jwt;
+using System.Numerics;
+using System.Security.Claims;
+using System.Text;
 using backend.connection;
 using backend.entidades;
 using backend.servicios;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace backend.Controllers;
 [EnableCors("DevelopmentCors")]
@@ -25,12 +31,56 @@ public class UsuarioAuthenticationController : ControllerBase
 
     [HttpGet]
     [Route("UserLogin")]
-    public IActionResult userLogin([FromQuery] string user, [FromQuery] string pass)
+    public dynamic userLogin([FromQuery] string inUser, [FromQuery] string inPass)
     {
         try
         {
-            var result = UsuarioLoginServicios.ObtenerByUserAndPass<Usuarios>(user, pass);
-            return Ok(result);
+            string user = inUser.ToString();
+            string password = inPass.ToString();
+
+            Usuarios usuario = UsuarioLoginServicios.ObtenerByUserAndPass<Usuarios>(user, password);
+
+            if (usuario == null)
+            {
+                return new
+                {
+                    success = false,
+                    message = "Usuario no encotrado",
+                    result = ""
+                };
+            }
+            else
+            {
+                var jwt = _configuration.GetSection("Jwt").Get<Jwt>();
+
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new[]{
+                    new Claim(JwtRegisteredClaimNames.Sub, jwt.Subject),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    // new Claim(JwtRegisteredClaimNames.Email, userInfo.EmailAddress),
+                    // new Claim("DateOfJoing", userInfo.DateOfJoing.ToString("yyyy-MM-dd")),
+                    new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+
+                    new Claim("id", usuario.Id.ToString()),
+                    new Claim("usuario", usuario.UserName.ToString())
+                };
+
+                var token = new JwtSecurityToken(
+                    jwt.Issuer,
+                    jwt.Audience,
+                    claims,
+                    expires: DateTime.Now.AddMinutes(50),
+                    signingCredentials: credentials
+                );
+
+                return new
+                {
+                    success = true,
+                    result = new JwtSecurityTokenHandler().WriteToken(token)
+                };
+            }
         }
         catch (Exception ex)
         {
@@ -42,8 +92,14 @@ public class UsuarioAuthenticationController : ControllerBase
     [Route("CambiarContrasenia")]
     public IActionResult cambiarContrasenia(Usuarios usuarios, [FromQuery] string oldPass, [FromQuery] string newPass)
     {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var rToken = Jwt.validarToken(identity);
+
         if (usuarios.Password == oldPass.ToString())
         {
+            if(!rToken.success){
+                return StatusCode(401,"Error de autenticacion");
+            }
             try
             {
                 var result = UsuarioLoginServicios.changeUserPassword(usuarios, newPass);
@@ -54,9 +110,30 @@ public class UsuarioAuthenticationController : ControllerBase
                 return StatusCode(500, ex.Message);
             }
         }
-        else {
-            return StatusCode(500, "Pass incorrecto: "+newPass.ToString());;
+        else
+        {
+            return StatusCode(500, "Contrasenia no midificada");
         };
+
+    }
+    
+    [HttpGet]
+    [Route("pruebadetoken")]
+    public IActionResult pruebaDeToken([FromQuery] string Intoken)
+    {
+        // var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var rToken = Jwt.validarToken(identity);
+
+        // Usuarios us = rToken.result;
+        // var tokenHandler = new JwtSecurityTokenHandler();
+        // var token = tokenHandler.ReadJwtToken(Intoken);
+
+        // var claimsIdentity = new ClaimsIdentity(token.Claims);
+        // if (!rToken.success) 
+        // return Ok(rToken.result);
+
+        return Ok(rToken.message);
 
     }
 }

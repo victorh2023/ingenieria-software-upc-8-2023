@@ -102,12 +102,12 @@ export class Tab3Page {
         next: (response: HttpResponse<any>) => {
             console.log(response.body)//1
             if(response.body == 1){
-                alert("Se Actualizó el Producto con exito :)");
+                alert("Se Actualizó el PRODUCTO con exito :)");
                 this.getProductoFromBackend();//Se actualize el listado
                 this.nombre = "";
                 this.idCategoria = 0;
             }else{
-                alert("Al agregar al USUARIO fallo :(");
+                alert("Al agregar al PRODUCTO fallo :(");
             }
             },
             error: (error: any) => {
@@ -128,11 +128,11 @@ export class Tab3Page {
         this.productoService.Delete(id).subscribe({
             next: (response: HttpResponse<any>) => {
                 if (response.body == 1) {
-                alert("Se eliminó el producto con éxito :)");
+                alert("Se eliminó el PRODUCTO con éxito :)");
                 this.getProductoFromBackend(); // Se actualiza el listado
                 
                 } else {
-                alert("Al eliminar el Producto falló :(");
+                alert("Al eliminar el PRODUCTO falló :(");
                 }
             },
             error: (error: any) => {

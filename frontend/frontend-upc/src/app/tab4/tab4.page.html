@@ -1,3 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Carrito de Compra</ion-title>
+  </ion-toolbar>
+  <style>
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-header [translucent]="true">
     <ion-toolbar color="primary">
@@ -23,11 +41,32 @@
       </ion-item>
       <br>
 
-    <h2>Agregar Detalle Carrito</h2>
-    <ion-item>
-      <ion-input id="cantidad" type="number" placeholder="Ingrese la cantidad" [(ngModel)]="cantidad"></ion-input>
-      <ion-input id="idProducto" type="number" placeholder="Ingrese el idProducto" [(ngModel)]="idProducto"></ion-input>
-      <ion-input id="idCarritoCompra" type="number" placeholder="Ingrese el idCarritoCompra" [(ngModel)]="idCarritoCompra"></ion-input>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Agregar o Actualizar Detalle de Carrito</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">ID del Detalle</ion-label>
+        <ion-input type="number" [(ngModel)]="idDetalle"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">ID del Carrito de Compra</ion-label>
+        <ion-input type="number" [(ngModel)]="idCarritoCompra"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">ID del Producto</ion-label>
+        <ion-input type="number" [(ngModel)]="idProducto"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cantidad</ion-label>
+        <ion-input type="number" [(ngModel)]="cantidad"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" color="primary" (click)="addDetalleCarrito()">Agregar Detalle</ion-button>
+      <ion-button expand="full" color="primary" (click)="updateDetalle()">Actualizar Detalle</ion-button>
+    </ion-card-content>
+  </ion-card>
 
       <ion-button id="addDetalleCarrito" (click)="addDetalleCarrito()">Agregar Detalle Carrito</ion-button>
     </ion-item>
@@ -40,14 +79,56 @@
       </ion-item>
     </ion-list>
 
-    <h2>Utilimos 5 Detalles de  Carrito</h2>
-    <ion-list>
-      <ion-item *ngFor="let item of listaDetalle">
-        <b>cantidad</b>:{{item.idProducto}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}; <b>idCarritoCompra</b>:{{item.idCarritoCompra}}
-      </ion-item>
-    </ion-list>
+  <ion-card *ngIf="detalleCarrito">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Detalles del Detalle de Carrito</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>ID:</strong> {{ detalleCarrito.id }}</p>
+      <p><strong>Cantidad:</strong> {{ detalleCarrito.cantidad }}</p>
+      <p><strong>ID Producto:</strong> {{ detalleCarrito.idProducto }}</p>
+      <p><strong>ID Carrito:</strong> {{ detalleCarrito.idCarritoCompra }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Últimos 5 Carritos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of listaCarrito">
+          <p><b>ID:</b> {{ item.id }}, <b>Fecha:</b> {{ item.fecha }}, <b>ID Usuario:</b> {{ item.idUsuario }}</p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card> -->  
 
   <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Últimos 5 Carritos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>ID Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaCarrito">
+            <td>{{ item.id }}</td>
+            <td>{{ item.fecha }}</td>
+            <td>{{ item.idUsuario }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
     <ion-card-header>
       <ion-card-title class="ion-text-center">Últimos 5 Detalles de Carrito</ion-card-title>
     </ion-card-header>
@@ -58,5 +139,35 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
+  </ion-card> -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Últimos 5 Detalles de Carrito</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cantidad</th>
+            <th>ID Producto</th>
+            <th>ID Carrito de Compra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaDetalle">
+            <td>{{ item.id }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.idProducto }}</td>
+            <td>{{ item.idCarritoCompra }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card-content>
   </ion-card>
+  
+
+
+
 </ion-content>

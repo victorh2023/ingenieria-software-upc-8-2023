@@ -1,3 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Producto</ion-title>
+  </ion-toolbar>
+  <style>
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-header [translucent]="true">
     <ion-toolbar color="primary">
@@ -32,5 +50,60 @@
         <ion-label position="float">{{item.nombre}}</ion-label>  
         <ion-label position="float">{{item.idCategoria}}</ion-label>  
       </ion-item>
-    </ion-list>
-</ion-content>
+      <ion-button expand="full" color="primary" (click)="getById()">Obtener Producto</ion-button>
+      <ion-button expand="full" color="danger" (click)="deleteProducto(id)">Eliminar Producto</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="producto">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Detalles del Producto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>ID:</strong> {{ producto.id }}</p>
+      <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+      <p><strong>ID Categoría:</strong> {{ producto.idCategoria }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of listaProducto">
+          <p><b>ID:</b> {{ item.id }}, <b>Nombre:</b> {{ item.nombre }}, <b>ID Categoría:</b> {{ item.idCategoria }}</p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+-->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Lista de Productos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>ID Categoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaProducto">
+              <td>{{ item.id }}</td>
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.idCategoria }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content> 
