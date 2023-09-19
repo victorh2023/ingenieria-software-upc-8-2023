@@ -18,9 +18,9 @@
 
 <ion-content [fullscreen]="true">
   <ion-header [translucent]="true">
-    <ion-toolbar color="primary">
+    <ion-toolbar>
       <ion-title>
-        <h2 style="color: rgb(5, 5, 5); font-family: 'Times New Roman', Times, serif; text-align: center; margin-top: auto;"> Lista de Productos</h2>
+        <h2 style="color: rgb(5, 5, 5); font-family: 'Times New Roman', Times, serif; text-align: center; margin-top: auto;"> Agregar y Actualizar Productos</h2>
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -32,16 +32,16 @@
     </ion-toolbar>
   </ion-header>
 
-
-  <ion-item color="danger">
-    <ion-label position="float">Nombre Producto;</ion-label> 
-    <ion-input id="nombre" type="text" placeholder="__________" [(ngModel)]="nombre"></ion-input>
-    <ion-label position="float">Id Categoria;</ion-label>   
-    <ion-input id="idCategoria" type="number" placeholder="__________" [(ngModel)]="idCategoria"></ion-input>
-    
-    <ion-button expand="block" fill="outline" id="addProducto" (click)="addProducto()">Agregar Producto</ion-button>
-    <br>
-  </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label position="float">Nombre Producto:</ion-label> 
+      <ion-input id="nombre" type="text" placeholder="ingrese nombre..." [(ngModel)]="nombre"></ion-input>
+      <ion-label position="float">Id Categoria:</ion-label>   
+      <ion-input id="idCategoria" type="number" placeholder="ingrese id..." [(ngModel)]="idCategoria"></ion-input>
+    </ion-item>
+      <ion-button expand="full" color="primary" id="addProducto" (click)="addProducto()">Agregar Producto</ion-button>
+      <ion-button expand="full" color="danger" id="addProducto" (click)="addProducto()">Actualizar Producto</ion-button>
+  </ion-list>  
 
 
   <br>
